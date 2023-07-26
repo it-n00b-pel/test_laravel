@@ -25,11 +25,20 @@ class PostController extends Controller {
     }
 
     public function update() {
-        $post =  Post::all()->find(2);
+        $post = Post::all()->find(2);
 
         $post->update(['title' => 'new TITLE']);
 
         dd('update');
 
+    }
+
+    public function delete() {
+//        $post = Post::all()->find(3);
+//        $post->delete();
+//        dd($post);
+        $post = Post::withTrashed()->find(3);
+        $post->restore();
+        dd($post);
     }
 }
