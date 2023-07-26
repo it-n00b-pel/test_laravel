@@ -20,3 +20,5 @@ Route::get('/', function () {
 //Route::get('/my_page', 'MyPlaceController@index ');
 
 Route::get('/posts', [\App\Http\Controllers\PostController::class, 'index']);
+Route::get('/posts/create', [\App\Http\Controllers\PostController::class, 'create']);
+Route::get('/posts/update', [\App\Http\Controllers\PostController::class, 'update']);
