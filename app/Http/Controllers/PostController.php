@@ -41,4 +41,33 @@ class PostController extends Controller {
         $post->restore();
         dd($post);
     }
+
+    public function firstOrCreate() {
+//        dd('start');
+
+        $post = Post::firstOrCreate([
+            'title' => 'new 1',
+            'content'=>'some content 2'
+        ], ['title' => 'new 1',
+            'content' => 'some new content 2',
+            'image' => 'some title 1',
+            'likes' => 10000,
+            'is_published' => 0]);
+
+        dd('finished');
+    }
+    public function updateOrCreate() {
+//        dd('start');
+
+        $post = Post::updateOrCreate([
+            'title' => '!!!some title 2'
+        ], ['title' => '!!!some title 2',
+            'content' => 'NEW',
+//            'image' => 'some title 1',
+            'likes' => 10000,
+            'is_published' => 0]);
+
+        dd('finished');
+    }
+
 }
