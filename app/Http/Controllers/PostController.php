@@ -10,7 +10,8 @@ class PostController extends Controller {
     public function index() {
         $posts = Post::all();
         $post = $posts->where('is_published', 0)->first();
-        dd($posts);
+//        dd($post);
+        return view('posts', compact('posts'));
     }
 
     public function create() {
