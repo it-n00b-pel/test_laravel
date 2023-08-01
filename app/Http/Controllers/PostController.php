@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller {
     //
     public function index() {
-        $posts = Post::all();
-        $post = $posts->where('is_published', 0)->first();
+//        $posts = Post::all();
+//        $post = $posts->where('is_published', 0)->first();
+//        $category = Category::all()->find(1);
+
+//        $post = Post::find(2);
+        $tag = Tag::find(1);
+//        dd($post->tags);
+        dd($tag->post);
+//        $posts = Post::where('category_id', $category->id)->get();
+
+//        dd($category->posts);
 //        dd($post);
-        return view('post.index', compact('posts'));
+//        return view('post.index', compact('posts'));
     }
 
     public function create() {
