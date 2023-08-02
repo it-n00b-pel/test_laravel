@@ -10,19 +10,17 @@ use Illuminate\Http\Request;
 class PostController extends Controller {
     //
     public function index() {
-//        $posts = Post::all();
+        $posts = Post::all();
+        return view('post.index', compact('posts'));
 //        $post = $posts->where('is_published', 0)->first();
 //        $category = Category::all()->find(1);
-
 //        $post = Post::find(2);
-        $tag = Tag::find(1);
+//        $tag = Tag::find(1);
 //        dd($post->tags);
-        dd($tag->post);
+//        dd($tag->post);
 //        $posts = Post::where('category_id', $category->id)->get();
-
 //        dd($category->posts);
 //        dd($post);
-//        return view('post.index', compact('posts'));
     }
 
     public function create() {
@@ -34,13 +32,25 @@ class PostController extends Controller {
 //            Post::create($item);
 //        }
 //        dd('created');
-        return view('post.create');
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('post.create', compact('categories', 'tags'));
     }
 
     public function store() {
-        $data = request()->validate(['title' => 'string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer']);
+        $data = request()->validate(['title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
+            'likes' => 'integer',
+            'category_id' => '',
+            'tags'=>''
+        ]);
 
-        Post::create($data);
+        $tags = $data['tags'];
+        unset($data['tags']);
+//       dd($data, $tags);
+        $post = Post::create($data);
+        $post->tags()->attach($tags);
         return redirect()->route('post.index');
     }
 
@@ -49,12 +59,17 @@ class PostController extends Controller {
     }
 
     public function edit(Post $post) {
-        return view('post.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('post.edit', compact('post', 'categories', 'tags'));
     }
 
     public function update(Post $post) {
-        $data = \request()->validate(['title' => 'string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer']);
+        $data = \request()->validate(['title' => 'string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer', 'category_id' => '',   'tags'=>'']);
 //        dd($data);
+        $tags = $data['tags'];
+        unset($data['tags']);
+        $post->tags()->sync($tags);
         $post->update($data);
         return redirect()->route('post.show', $post->id);
     }
@@ -70,7 +85,7 @@ class PostController extends Controller {
 //        dd($post);
         $post = Post::withTrashed()->find(3);
         $post->restore();
-        dd($post);
+//        dd($post);
     }
 
     public function firstOrCreate() {
@@ -78,7 +93,7 @@ class PostController extends Controller {
 
         $post = Post::firstOrCreate(['title' => 'new 1', 'content' => 'some content 2'], ['title' => 'new 1', 'content' => 'some new content 2', 'image' => 'some title 1', 'likes' => 10000, 'is_published' => 0]);
 
-        dd('finished');
+//        dd('finished');
     }
 
     public function updateOrCreate() {
@@ -87,7 +102,7 @@ class PostController extends Controller {
         $post = Post::updateOrCreate(['title' => '!!!some title 2'], ['title' => '!!!some title 2', 'content' => 'NEW', //            'image' => 'some title 1',
             'likes' => 10000, 'is_published' => 0]);
 
-        dd('finished');
+//        dd('finished');
     }
 
 }

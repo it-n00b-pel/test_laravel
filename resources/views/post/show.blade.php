@@ -1,5 +1,6 @@
 @extends('layouts.main')
 @section('content')
+
     <div>
         {{$post->id}} - {{$post->title}}
     </div>
