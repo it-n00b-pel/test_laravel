@@ -10,10 +10,14 @@ use Illuminate\Http\Request;
 class PostController extends Controller {
     //
     public function index() {
-        $posts = Post::all();
+        $post = Post::find(1);
+        $category = Category::find(1);
+        $tag = Tag::find(1);
+
+        dd($tag->posts);
         return view('post.index', compact('posts'));
 //        $post = $posts->where('is_published', 0)->first();
-//        $category = Category::all()->find(1);
+//
 //        $post = Post::find(2);
 //        $tag = Tag::find(1);
 //        dd($post->tags);
@@ -38,7 +42,8 @@ class PostController extends Controller {
     }
 
     public function store() {
-        $data = request()->validate(['title' => 'string',
+        $data = request()->validate([
+            'title' => 'required|string',
             'content' => 'string',
             'image' => 'string',
             'likes' => 'integer',
