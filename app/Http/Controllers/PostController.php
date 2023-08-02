@@ -38,7 +38,8 @@ class PostController extends Controller {
     }
 
     public function store() {
-        $data = request()->validate(['title' => 'string',
+        $data = request()->validate([
+            'title' => 'required|string',
             'content' => 'string',
             'image' => 'string',
             'likes' => 'integer',
