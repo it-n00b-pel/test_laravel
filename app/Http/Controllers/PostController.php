@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 class PostController extends Controller {
     //
     public function index() {
-        $post = Post::find(1);
+        $posts = Post::all();
         $category = Category::find(1);
         $tag = Tag::find(1);
 
-        dd($tag->posts);
+//        dd($tag->posts);
         return view('post.index', compact('posts'));
 //        $post = $posts->where('is_published', 0)->first();
 //
