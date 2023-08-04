@@ -8,5 +8,6 @@
         <a href="{{route('post.create')}}">
             <button type="button" class="btn btn-dark">Add one</button>
         </a>
+        {{$posts->links()}}
     </div>
 @endsection

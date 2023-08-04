@@ -42,14 +42,7 @@ class PostController extends Controller {
     }
 
     public function store() {
-        $data = request()->validate([
-            'title' => 'required|string',
-            'content' => 'string',
-            'image' => 'string',
-            'likes' => 'integer',
-            'category_id' => '',
-            'tags'=>''
-        ]);
+        $data = request()->validate(['title' => 'required|string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer', 'category_id' => '', 'tags' => '']);
 
         $tags = $data['tags'];
         unset($data['tags']);
@@ -70,7 +63,7 @@ class PostController extends Controller {
     }
 
     public function update(Post $post) {
-        $data = \request()->validate(['title' => 'string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer', 'category_id' => '',   'tags'=>'']);
+        $data = \request()->validate(['title' => 'string', 'content' => 'string', 'image' => 'string', 'likes' => 'integer', 'category_id' => '', 'tags' => '']);
 //        dd($data);
         $tags = $data['tags'];
         unset($data['tags']);
