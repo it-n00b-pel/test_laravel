@@ -13,12 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return 'start page';
-});
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
 
-Route::group(['namespace'=>'App\Http\Controllers\Post'], function(){
-    Route::get('/posts', 'IndexController' )->name('post.index');
+//Route::group(['namespace'=>'App\Http\Controllers\Admin', 'prefix'=>'admin'], function(){
+//    Route::group(['namespace'=>'Post'], function(){
+//        Route::get('/post', 'IndexController' )->name('admin.post.index');
+//    });
+//});
+
+//Route::group(['namespace' => '\App\Http\Controllers\Admin\Post'], function () {
+//    Route::prefix('/admin')->group(function () {
+//        Route::get('/post', IndexAdminController::class)->name('admin.post.index');
+//    });
+//});
+
+
+Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
+    Route::get('/posts', 'IndexController')->name('post.index');
     Route::get('/posts/create', 'CreateController')->name('post.create');
     Route::post('/posts', 'StoreController')->name('post.store');
     Route::get('/posts/{post}', 'ShowController')->name('post.show');
@@ -59,4 +70,10 @@ Route::patch('/contacts/{contact}', [\App\Http\Controllers\ContactController::cl
 Route::get('/about', [\App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
 
 
+Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -20,9 +20,9 @@ class IndexController extends BaseController {
         $data = $request->validated();
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($data)]);
         $posts = Post::filter($filter)->paginate(10);
-            return $posts;
+        //   return $posts;
 //       dd($posts);
-//        return view('post.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
 
 }
